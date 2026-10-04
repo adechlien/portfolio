@@ -1,0 +1,13 @@
+---
+import { commands } from '../../data/terminal';
+import { terminalLink, terminalMuted } from './styles';
+---
+
+<template data-terminal-template="help">
+  <div class="grid gap-2 [&>div]:grid [&>div]:grid-cols-[minmax(110px,1fr)_1fr] [&>div]:items-start [&>div]:gap-3 [&>div]:text-[11px] [&>div>span]:text-adech-void-1 md:[&>div]:grid-cols-[minmax(125px,.9fr)_1.2fr] md:[&>div]:text-sm">
+    {commands.map(({ name, description }) => <div><button type="button" class={terminalLink} data-run-command={name}>{name}</button><span>{description}</span></div>)}
+  </div>
+  <p class={`${terminalMuted} mt-4`}>
+      <i class="ti ti-chevron-up"></i>/<i class="ti ti-chevron-down"></i> history - Tab/<i class="ti ti-chevron-right"></i> accept suggestion - Click a command to run it
+  </p>
+</template>

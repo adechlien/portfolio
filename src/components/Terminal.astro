@@ -1,0 +1,30 @@
+---
+import Help from './terminal/Help.astro';
+import Whois from './terminal/Whois.astro';
+import Skills from './terminal/Skills.astro';
+import Projects from './terminal/Projects.astro';
+import Contact from './terminal/Contact.astro';
+import Palettes from './terminal/Palettes.astro';
+---
+
+<div class="flex h-full flex-col font-cascadia text-xs leading-[1.65] md:text-sm">
+  <div class="min-h-0 flex-1 overflow-auto py-3 [overflow-wrap:anywhere] [scrollbar-width:thin] [scrollbar-color:theme(colors.adech-void-2)_transparent] md:py-3.5" data-terminal-output role="log" aria-label="Command output" aria-live="polite" aria-relevant="additions" tabindex="0"></div>
+  <form class="shrink-0 border-t border-adech-void-3 px-2.5 pb-4 pt-2.5 md:pb-[22px]" data-terminal-form autocomplete="off">
+    <label for="terminal-command" class="block text-xs font-medium text-adech-venomous-3 md:text-sm">~/Humans/adechlien/portfolio</label>
+    <div class="mt-1 flex items-center gap-1.5">
+      <div class="relative min-w-0 flex-1 overflow-hidden" data-command-field>
+        <div class="pointer-events-none absolute left-0 top-0 select-none whitespace-pre" data-command-prediction aria-hidden="true" hidden><span class="text-transparent" data-prediction-prefix></span><span class="text-adech-void-2" data-prediction-suffix></span></div>
+      <input class="relative block w-full min-w-0 rounded-none border-0 bg-transparent p-0 [font:inherit] text-adech-venomous-3 caret-adech-venomous-1 outline-none placeholder:text-adech-void-1 placeholder:opacity-100" id="terminal-command" name="command" type="text" spellcheck="false" autocapitalize="off" autocorrect="off" aria-label="Terminal command" placeholder="Write ‘help’ for... help." enterkeyhint="send" />
+      </div>
+      <button type="button" class="shrink-0 rounded border border-adech-void-2 px-[5px] text-adech-void-1 leading-[1.4] hover:border-adech-venomous-1 hover:text-adech-venomous-3" data-accept-prediction aria-label="Accept autocomplete suggestion" title="Accept suggestion (Tab or →)" hidden>⇥</button>
+      <button type="submit" class="h-7 w-7 rounded-[5px] text-adech-void-1 opacity-[.65] hover:bg-adech-venomous-3/5 hover:opacity-100" aria-label="Run command" title="Run command">↵</button>
+    </div>
+  </form>
+</div>
+
+<Help />
+<Whois />
+<Skills />
+<Projects />
+<Contact />
+<!-- <Palettes /> -->

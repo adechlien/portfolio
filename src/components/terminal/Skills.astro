@@ -1,0 +1,15 @@
+---
+import { skillGroups } from '../../data/portfolio.js';
+import { formatSkillsTree } from '../../data/terminal';
+const skillsTree = formatSkillsTree(skillGroups);
+const areaColors: Record<string, string> = Object.fromEntries(skillGroups.map(group => [group.title, group.colorClass]));
+let currentColor: string | undefined;
+const lines = skillsTree.split('\n').map(text => {
+  currentColor = areaColors[text.slice(4)] || currentColor;
+  return { text, className: currentColor };
+});
+---
+
+<template data-terminal-template="skills">
+  <pre class="overflow-x-auto whitespace-pre [font:inherit] text-adech-boulevard-1">{lines.map((line, index) => <Fragment><span class={line.className}>{line.text}</span>{index < lines.length - 1 ? '\n' : ''}</Fragment>)}</pre>
+</template>

@@ -1,0 +1,31 @@
+---
+import { skillGroups } from "../../data/portfolio.js";
+
+const visibleAreas = [
+  "Frontend",
+  "UX/UI",
+  // "Backend",
+  // "Databases",
+  "DevOps",
+];
+const interfaceSkills = skillGroups
+  .filter((group) => visibleAreas.includes(group.title))
+  .sort((a, b) => visibleAreas.indexOf(a.title) - visibleAreas.indexOf(b.title));
+---
+
+<section class="hidden w-full flex-col gap-3 overflow-visible pb-1" data-tab-panel="skills">
+  <div class="grid w-fit max-w-full grid-cols-[max-content_minmax(0,1fr)] items-start gap-x-6 gap-y-3 text-adech-boulevard-3">
+    {interfaceSkills.map((group) => (
+      <div class:list={["flex min-w-0 flex-col gap-1", group.colorClass, { "col-span-2": group.title === "Frontend" }]}>
+        <p class="text-base font-black">{group.title}</p>
+        <div class="flex flex-wrap items-center gap-3">
+          {group.items.map(({ label, icon }) => (
+            <span class="inline-flex h-10 w-10 items-center justify-center text-3xl" role="img" aria-label={label} title={label}>
+              <i class={`ti ti-${icon}`} aria-hidden="true"></i>
+            </span>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

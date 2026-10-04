@@ -1,0 +1,42 @@
+---
+interface Props {
+  project: { name: string; href: string; logo: string; favicon?: string };
+  class?: string;
+}
+const { project, class: className = 'h-12 w-12' } = Astro.props;
+const favicon = project.favicon || new URL('/favicon.ico', project.href).href;
+---
+
+<img
+  src={favicon}
+  alt=""
+  class:list={['shrink-0 object-contain', className]}
+  data-project-icon
+  data-fallback-src={project.logo}
+  decoding="async"
+  referrerpolicy="no-referrer"
+/>
+
+<script>
+  function useFallback(icon: HTMLImageElement) {
+    const fallback = icon.dataset.fallbackSrc;
+    if (fallback) {
+      delete icon.dataset.fallbackSrc;
+      icon.src = fallback;
+    } else {
+      icon.hidden = true;
+    }
+  }
+
+  // Capture also handles icons cloned from terminal output templates.
+  document.addEventListener('error', event => {
+    if (event.target instanceof HTMLImageElement && event.target.hasAttribute('data-project-icon')) {
+      useFallback(event.target);
+    }
+  }, true);
+
+  // An initial remote image may fail before the script has loaded.
+  document.querySelectorAll<HTMLImageElement>('[data-project-icon]').forEach(icon => {
+    if (icon.complete && icon.naturalWidth === 0) useFallback(icon);
+  });
+</script>

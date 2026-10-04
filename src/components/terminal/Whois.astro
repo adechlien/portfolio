@@ -1,0 +1,18 @@
+---
+import { about, profile } from '../../data/portfolio.js';
+import { terminalLink, terminalMuted } from './styles';
+---
+
+<template data-terminal-template="whois">
+    <section class="flex flex-col gap-4">
+        <div class="flex flex-col">
+            <h2 class="text-base font-semibold">{profile.name}</h2>
+            <p class={`${terminalMuted} my-0`}>{profile.role}</p>
+        </div>
+        <div class="flex flex-col gap-1">
+            {about.paragraphs.map(paragraph => <p>{paragraph.map(part => part.text)}</p>)}
+            <p class={`${terminalMuted} flex items-center gap-1`}><i class="ti ti-map-pin"></i>{about.location.label}</p>
+        </div>
+        <div class={`${terminalLink} flex flex-wrap gap-4`} >{profile.links.map(link => <a class={`${terminalLink} inline-flex items-center gap-2`} href={link.href} target="_blank" rel="noopener noreferrer" download={link.download ? '' : undefined}>{link.label}</a>)}</div>
+    </section>
+</template>

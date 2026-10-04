@@ -1,0 +1,35 @@
+---
+import { about, profile } from "../../data/portfolio.js";
+import Me from "./Me.astro";
+---
+
+<section class="hidden h-auto w-full flex-col justify-start gap-2 overflow-visible pb-1" data-tab-panel="about">
+  <div class="grid grid-cols-[80px_minmax(0,1fr)] items-start gap-4 sm:grid-cols-[180px_minmax(0,1fr)] sm:gap-5">
+    <Me />
+    <div class="flex min-w-0 flex-col gap-2">
+      <div>
+        <h2 class="text-base font-semibold leading-tight text-adech-boulevard-1 sm:text-xl">{profile.name}</h2>
+        <p class="mt-1 text-xs text-adech-boulevard-3 sm:text-sm">{profile.role}</p>
+      </div>
+      <div class="flex flex-col gap-3 text-sm leading-relaxed text-adech-boulevard-3">
+        {about.paragraphs.map((paragraph) => (
+          <p>
+            {paragraph.map((part) => (part.text))}
+          </p>
+        ))}
+
+        <span class="flex items-center justify-start gap-1 text-adech-boulevard-1 duration-300 hover:text-adech-boulevard-3">
+          <i class="ti ti-map-pin text-lg"></i>
+          <a href={about.location.href} target="_blank" rel="noreferrer">{about.location.label}</a>
+        </span>
+      </div>
+      <div class="mt-1 flex flex-wrap gap-3">
+        {profile.links.map(link => (
+          <a href={link.href} target="_blank" rel="noreferrer" download={link.download ? "" : undefined} class="rounded-full text-2xl text-adech-venomous-1 transition hover:bg-adech-venomous-3/5" aria-label={link.label} title={link.label}>
+            <i class={`ti ti-${link.icon}`} aria-hidden="true"></i>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

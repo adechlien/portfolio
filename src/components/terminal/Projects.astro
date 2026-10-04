@@ -1,0 +1,18 @@
+---
+import { projects } from '../../data/portfolio.js';
+import ProjectIcon from '../ProjectIcon.astro';
+import { terminalLink, terminalMuted } from './styles';
+---
+
+<template data-terminal-template="projects">
+    <section class="flex flex-col gap-6">
+        <div class="flex flex-col gap-4">
+            {projects.map(project => <div>
+                <a class:list={[terminalLink, "inline-flex items-center gap-2"]} href={project.href} target="_blank" rel="noopener noreferrer"><ProjectIcon project={project} class="h-5 w-5" />{project.name}</a>
+                <p>{project.desc}</p>
+                <p class={terminalMuted}>{project.tech.map(tech => tech.label).join(' · ')}</p>
+            </div>)}
+        </div>
+        <p class={terminalMuted}>Click a name or type <code>visit NAME</code>.</p>
+    </section>
+</template>

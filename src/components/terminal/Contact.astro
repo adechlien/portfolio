@@ -1,0 +1,11 @@
+---
+import { terminalLink, terminalMuted } from './styles';
+---
+
+<template data-terminal-template="contact">
+    <section class="flex flex-col gap-2">
+        <p>Let's work together! Send me a message with</p>
+        <p class={terminalLink}><code>email -n "Your name" -e "you@email.com" -m "Your message"</code></p>
+        <p class={terminalMuted}>Use quotes for names and messages with spaces. You can also use the Contact tab with <button type="button" class={terminalLink} data-run-command="enable interface">enable interface</button>.</p>
+    </section>
+</template>

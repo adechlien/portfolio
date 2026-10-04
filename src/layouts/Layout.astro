@@ -1,17 +1,16 @@
 ---
+import '@fontsource-variable/cascadia-code/wght.css';
 interface Props {
     title: string;
 }
 const { title } = Astro.props;
-
-import PortfolioCard from "../components/PortfolioCard.astro";
 ---
 
 <!doctype html>
-<html lang="en" class="h-full">
+<html lang="en" class="h-full font-bellota" data-palette="superior">
     <head>
         <meta charset="UTF-8" />
-        <meta name="description" content="Portfolio" />
+        <meta name="description" content="Alejandro Hernández — frontend, UX/UI and fullstack developer. Explore my interactive terminal portfolio." />
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
@@ -22,13 +21,7 @@ import PortfolioCard from "../components/PortfolioCard.astro";
         <link href="https://fonts.googleapis.com/css2?family=Bellota+Text:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet"/>
     </head>
 
-    <body class="h-screen min-h-dvh bg-adech-swamp-3 text-adech-boulevard-1 antialiased overflow-x-hidden">
-        <PortfolioCard />
+    <body class="min-h-screen bg-adech-swamp-3 text-adech-boulevard-1 antialiased overflow-x-hidden">
+        <slot />
     </body>
-
-    <style>
-        :root {
-            font-family: Bellota Text, sans-serif;
-        }
-    </style>
 </html>

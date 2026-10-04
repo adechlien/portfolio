@@ -1,25 +1,17 @@
 ---
 import Header from "./Header.astro";
-import Me from "./Me.astro";
 import About from "./About.astro";
 import Skills from "./Skills.astro";
 import Projects from "./Projects.astro";
 import Contact from "./Contact.astro";
-
-const tabs = [
-  { id: "about", label: "About" },
-  { id: "skills", label: "Skills" },
-  { id: "projects", label: "Projects" },
-  { id: "contact", label: "Contact" },
-];
+import { tabs } from "../../data/portfolio.js";
 ---
 
-<section class="mx-auto flex min-h-screen w-full max-w-2xl flex-col items-center justify-center gap-2 p-4">
+<section class="flex h-full w-full flex-col gap-3 p-3 sm:p-4">
   <Header tabs={tabs} />
-  <div class="flex flex-col sm:grid w-full gap-4 rounded-xl bg-adech-swamp-1 p-4 aspect-[1/2] sm:grid-cols-[200px_minmax(0,1fr)] sm:gap-6 sm:aspect-[2/1]">
-    <Me />
-    <div class="mt-2 min-w-0 overflow-hidden text-adech-boulevard-1">
-      <div id="tab-stage" class="h-full">
+  <div class="w-full min-h-0 flex-1 rounded-lg bg-adech-swamp-1 overflow-auto p-3 [scrollbar-width:thin] [scrollbar-color:theme(colors.adech-void-2)_transparent]">
+    <div class="min-w-0 text-adech-boulevard-1">
+      <div data-tab-stage class="h-full min-h-0 motion-reduce:animate-none">
         <About />
         <Skills />
         <Projects />
@@ -34,15 +26,9 @@ const tabs = [
 
   const buttons = Array.from(document.querySelectorAll("[data-tab-button]"));
   const panels = Array.from(document.querySelectorAll("[data-tab-panel]"));
-  const openContact = document.querySelector("[data-open-contact]");
-  const stage = document.getElementById("tab-stage");
+  const stage = document.querySelector("[data-tab-stage]");
   const tabsNav = document.querySelector("[data-tabs-nav]");
   const indicator = document.querySelector("[data-tab-indicator]");
-
-  function getTabFromHash() {
-    const hash = window.location.hash.replace("#", "").toLowerCase();
-    return VALID_TABS.includes(hash) ? hash : "about";
-  }
 
   function animateStage() {
     if (!stage) return;
@@ -66,7 +52,7 @@ const tabs = [
 
   let hasMounted = false;
 
-  function activateTab(tabId, updateHash = true) {
+  function activateTab(tabId) {
     const safeTab = VALID_TABS.includes(tabId) ? tabId : "about";
     let activeButton = null;
 
@@ -94,9 +80,6 @@ const tabs = [
       hasMounted = true;
     }
 
-    if (updateHash && window.location.hash !== `#${safeTab}`) {
-      history.replaceState(null, "", `#${safeTab}`);
-    }
   }
 
   buttons.forEach((button) => {
@@ -105,48 +88,10 @@ const tabs = [
     });
   });
 
-  if (openContact) {
-    openContact.addEventListener("click", (event) => {
-      event.preventDefault();
-      activateTab("contact");
-    });
-  }
-
-  window.addEventListener("hashchange", () => {
-    activateTab(getTabFromHash(), false);
-  });
-
   window.addEventListener("resize", () => {
     const current = buttons.find((button) => button.getAttribute("aria-selected") === "true");
     if (current) moveIndicator(current);
   });
 
-  activateTab(getTabFromHash(), false);
+  activateTab("about");
 </script>
-
-<style is:global>
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  @keyframes tabEnter {
-    from {
-      opacity: 0;
-      transform: translateY(14px) scale(0.985);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  .animate-tabEnter {
-    animation: tabEnter 420ms cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: opacity, transform;
-  }
-</style>

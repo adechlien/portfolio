@@ -1,0 +1,16 @@
+---
+const { tabs = [] } = Astro.props;
+---
+
+<header class="flex w-full flex-row items-center justify-between gap-2">
+  <nav class="[scrollbar-width:none] [&::-webkit-scrollbar]:hidden relative flex w-fit max-w-full min-w-0 items-center gap-1 overflow-x-auto rounded-lg bg-adech-swamp-1 p-1" aria-label="Portfolio sections" role="tablist" data-tabs-nav>
+      <span class="pointer-events-none absolute left-0 top-1 h-[calc(100%-0.5rem)] rounded-md bg-adech-boulevard-3 transition-all duration-300 ease-out" data-tab-indicator />
+      {
+      tabs.map((tab : any) => (
+        <button type="button" role="tab" data-tab-button={tab.id} class="relative z-10 shrink-0 rounded-lg px-3 py-2 text-xs font-semibold md:text-sm transition-colors duration-200 text-adech-boulevard-2" aria-selected="false">
+          {tab.label}
+        </button>
+      ))
+    }
+  </nav>
+</header>

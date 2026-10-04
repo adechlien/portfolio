@@ -1,0 +1,21 @@
+---
+import { palettes } from '../../data/terminal';
+import { terminalLink, terminalMuted } from './styles';
+---
+
+<template data-terminal-template="palettes">
+  <p>Available color palettes:</p>
+  <div class="grid gap-3">
+    {palettes.map(palette => <div>
+      <button type="button" class={terminalLink} data-run-command={`palettes -e ${palette.id}`}>{palette.name}</button>
+      <div class="my-2 flex gap-1.5" aria-label="Palette colors">
+        <span class="h-4 w-4 rounded border border-adech-void-3 bg-adech-swamp-3"></span>
+        <span class="h-4 w-4 rounded border border-adech-void-3 bg-adech-swamp-1"></span>
+        <span class="h-4 w-4 rounded bg-adech-venomous-1"></span>
+        <span class="h-4 w-4 rounded bg-adech-boulevard-3"></span>
+        <span class="h-4 w-4 rounded bg-adech-sunny-3"></span>
+      </div>
+      <p class={terminalMuted}>Apply with <code>palettes -e {palette.id}</code> or click its name.</p>
+    </div>)}
+  </div>
+</template>

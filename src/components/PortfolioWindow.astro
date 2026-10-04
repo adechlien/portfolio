@@ -1,0 +1,45 @@
+---
+import PortfolioCard from './interface/PortfolioCard.astro';
+import Terminal from './Terminal.astro';
+import InterfaceToggle from './InterfaceToggle.astro';
+const windowDot = 'h-[15px] w-[15px] rounded-full';
+---
+
+<section
+  class="fixed bottom-[var(--window-padding)] left-[var(--window-padding)] isolate origin-bottom-left transition-[width,height,left,bottom,transform,opacity] data-[dragging=true]:transition-none data-[minimized=true]:scale-[0.08] data-[minimized=true]:opacity-0 duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none flex h-[calc(50dvh-var(--window-padding)*1.5)] w-[calc(100vw-var(--window-padding)*2)] flex-col overflow-hidden rounded-[14px] border border-adech-void-3 bg-adech-swamp-1 text-adech-venomous-3 shadow-[0_16px_48px] shadow-adech-swamp-3/10 [--window-padding:12px] md:w-[calc(50vw-var(--window-padding)*1.5)] md:rounded-2xl md:[--window-padding:20px] [&[hidden]]:!hidden [&_[hidden]]:!hidden [&_*]:[-webkit-tap-highlight-color:transparent] [&_button:focus-visible]:outline [&_button:focus-visible]:outline-2 [&_button:focus-visible]:outline-offset-[3px] [&_button:focus-visible]:outline-adech-venomous-1 [&_a:focus-visible]:outline [&_a:focus-visible]:outline-2 [&_a:focus-visible]:outline-offset-[3px] [&_a:focus-visible]:outline-adech-venomous-1 [&_[tabindex]:focus-visible]:outline [&_[tabindex]:focus-visible]:outline-2 [&_[tabindex]:focus-visible]:outline-offset-[3px] [&_[tabindex]:focus-visible]:outline-adech-venomous-1 motion-reduce:[&_*]:!animate-none motion-reduce:[&_*]:!transition-none"
+  data-portfolio-window aria-label="Portfolio window"
+>
+  <header data-window-drag class="relative touch-none select-none cursor-grab active:cursor-grabbing flex basis-[42px] shrink-0 grow-0 items-center justify-center border-b border-adech-void-3 bg-adech-swamp-2">
+    <div data-window-controls class="absolute left-3.5 flex gap-2" aria-label="Window controls">
+      <button class={`${windowDot} bg-adech-sunny-3`} data-window-close aria-label="Close portfolio" title="Close"></button>
+      <button class={`${windowDot} bg-adech-sunny-1`} data-window-minimize aria-label="Minimize portfolio" title="Minimize"></button>
+      <span class="group/maximize relative flex cursor-not-allowed" tabindex="0" aria-describedby="maximize-tooltip">
+        <button class={`${windowDot} cursor-not-allowed bg-adech-venomous-1`} disabled aria-label="Maximize portfolio"></button>
+        <span id="maximize-tooltip" role="tooltip" class="pointer-events-none absolute left-0 top-7 z-20 hidden w-max rounded-md border border-adech-void-3 bg-adech-swamp-2 px-3 py-2 font-sans text-xs text-adech-venomous-3 shadow-lg group-hover/maximize:block group-focus-visible/maximize:block">Available tomorrow @ 20:00 UTC</span>
+      </span>
+    </div>
+    <span class="pointer-events-none max-w-[calc(100%-180px)] truncate text-[15px] font-light text-adech-void-1">adechlien</span>
+    <InterfaceToggle />
+  </header>
+  <div class="min-h-0 flex-1" data-window-content>
+    <div class="h-full min-h-0" data-terminal-view><Terminal /></div>
+    <div class="h-full min-h-0" data-interface-view hidden><PortfolioCard /></div>
+  </div>
+  <dialog class="fixed inset-auto m-0 w-[min(340px,calc(100%-32px))] -translate-x-1/2 -translate-y-1/2 overflow-auto rounded-xl bg-adech-swamp-2 p-6 text-adech-venomous-3 shadow-[0_20px_60px] shadow-adech-swamp-3/30 backdrop:bg-adech-swamp-3/40 backdrop:backdrop-blur-[3px]" aria-labelledby="quit-title" data-quit-dialog>
+    <h2 id="quit-title" class="mb-3 text-xl font-bold">Wanna leave?</h2>
+    <p class="text-sm text-adech-void-1">You can reopen it whenever you like.</p>
+    <div class="mt-6 grid gap-2.5">
+      <button type="button" class="rounded-md bg-adech-venomous-3 p-2.5 font-bold text-adech-swamp-2" data-confirm-close>Yes, close</button>
+      <button type="button" class="rounded-md bg-adech-venomous-3/10 p-2.5 font-bold" data-cancel-close>Cancel</button>
+    </div>
+  </dialog>
+</section>
+<button type="button" class="fixed bottom-3 left-3 flex items-center gap-3.5 rounded-xl border border-adech-void-3 bg-adech-swamp-2 px-[18px] py-3.5 text-adech-venomous-3 md:bottom-5 md:left-5 [&[hidden]]:!hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-adech-venomous-1" data-window-restore hidden>
+  <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m5 5 7 7-7 7M14 19h6" /></svg>
+  <span>my_portfolio</span><span class="text-xs text-adech-venomous-1">Open</span>
+</button>
+
+<script>
+  import { initializePortfolioWindow } from '../scripts/portfolio-window';
+  initializePortfolioWindow();
+</script>
